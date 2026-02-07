@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine’s Week ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: white;
+  text-align: center;
+  min-height: 100vh;
+}
+
+h1 {
+  padding: 20px 10px 5px;
+}
+
+.subtitle {
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.day {
+  background: rgba(255,255,255,0.18);
+  border-radius: 16px;
+  padding: 20px 10px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.day:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.25);
+}
+
+.locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  color: #333;
+  padding: 25px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  animation: fadeIn 0.4s ease;
+}
+
+.modal-content h2 {
+  color: #ff4f7a;
+}
+
+.close {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background: #ff4f7a;
+  color: white;
+  font-size: 1rem;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform: scale(0.9);}
+  to {opacity:1; transform: scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<h1>Valentine’s Week ❤️</h1>
+<div class="subtitle">For Anaya, from Athul</div>
+
+<div class="days" id="days"></div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2 id="modalTitle"></h2>
+    <p id="modalText"></p>
+    <button class="close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+const daysData = [
+  { date: "02-07", title: "🌹 Rose Day", text: "Anaya, like a rose, you make my life beautiful just by being in it." },
+  { date: "02-08", title: "💍 Propose Day", text: "I may not say it every day, but my heart chooses you, always." },
+  { date: "02-09", title: "🍫 Chocolate Day", text: "Life feels sweeter with you in it, Anaya." },
+  { date: "02-10", title: "🧸 Teddy Day", text: "If I were a teddy, I’d want to stay in your arms forever." },
+  { date: "02-11", title: "🤝 Promise Day", text: "I promise to stand by you, in smiles and storms alike." },
+  { date: "02-12", title: "🤗 Hug Day", text: "Here’s a warm hug that says everything my words can’t." },
+  { date: "02-13", title: "💋 Kiss Day", text: "A kiss to seal all my love for you, today and always." },
+  { date: "02-14", title: "❤️ Valentine’s Day", text: "Anaya, you are my today, my tomorrow, and my forever. Happy Valentine’s Day." }
+];
+
+const today = new Date();
+const currentMonth = today.getMonth() + 1;
+const currentDay = today.getDate();
+
+const container = document.getElementById("days");
+
+daysData.forEach(day => {
+  const [m, d] = day.date.split("-").map(Number);
+  const unlocked = (currentMonth > m) || (currentMonth === m && currentDay >= d);
+
+  const div = document.createElement("div");
+  div.className = "day" + (unlocked ? "" : " locked");
+  div.innerHTML = `<h3>${day.title}</h3><p>Feb ${d}</p>`;
+
+  if (unlocked) {
+    div.onclick = () => openModal(day.title, day.text);
+  }
+
+  container.appendChild(div);
+});
+
+function openModal(title, text) {
+  document.getElementById("modalTitle").innerText = title;
+  document.getElementById("modalText").innerText = text;
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+</script>
+
+</body>
+</html>
+  
